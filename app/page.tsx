@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
-const roles = ['Data Analyst', 'Excel Boss', 'SQL Wizard', 'Data Storyteller', 'BI Specialist', 'Insight Hunter'];
+const roles = ['Data Analyst', 'Excel Queen', 'SQL Star', 'Data Storyteller', 'BI Specialist', 'Insight Expert'];
 
 const DynamicRole = () => {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -36,13 +36,25 @@ const DynamicRole = () => {
 export default function Portfolio() {
   const [activeNav, setActiveNav] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleScroll();
+    handleResize();
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -56,7 +68,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="bg-[#D4C3F3] min-h-screen text-[#000000]">
+    <div className="bg-[#D4C3F3] min-h-screen text-[#000000] overflow-x-hidden">
       {/* Fixed Navigation Bar */}
       <motion.nav
         className={`fixed top-0 w-full z-50 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
@@ -123,8 +135,8 @@ export default function Portfolio() {
             {/* Left Column - Text */}
             <motion.div
               className="space-y-6 order-2 lg:order-1"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : -50, y: isMobile ? 30 : 0 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.7 }}
             >
               <div className="space-y-2">
@@ -189,8 +201,8 @@ export default function Portfolio() {
             {/* Right Column - Visual Accent Card */}
             <motion.div
               className="order-1 lg:order-2"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 30 : 0 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.7 }}
             >
               <div className="relative">
@@ -286,7 +298,7 @@ export default function Portfolio() {
       </section>
 
       {/* About Me Section */}
-      <section id="about" className="py-20 px-6 bg-[#D4C3F3]">
+      <section id="about" className="py-20 px-6 bg-[#D4C3F3] overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             className="text-4xl font-bold text-[#2A0845] mb-16 text-center"
@@ -302,10 +314,10 @@ export default function Portfolio() {
             {/* Left Column - Professional Portrait (40%) */}
             <motion.div
               className="lg:col-span-2"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : -50, y: isMobile ? 40 : 0, scale: isMobile ? 0.95 : 1 }}
+              whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ type: "spring", stiffness: 70, damping: 15, duration: 0.7 }}
             >
               <div className="sticky top-32">
                 <motion.div
@@ -328,10 +340,10 @@ export default function Portfolio() {
             {/* Right Column - Narrative (60%) */}
             <motion.div
               className="lg:col-span-3 space-y-8"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 40 : 0 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ type: "spring", stiffness: 70, damping: 15, duration: 0.7 }}
             >
               {/* My Philosophy */}
               <motion.div
@@ -340,7 +352,7 @@ export default function Portfolio() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: isMobile ? 0.05 : 0.2 }}
               >
                 <h3 className="text-2xl font-bold text-[#2A0845] mb-4">My Philosophy</h3>
                 <p className="text-[#333333] leading-relaxed mb-3">
@@ -360,7 +372,7 @@ export default function Portfolio() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: isMobile ? 0.1 : 0.3 }}
               >
                 <h3 className="text-2xl font-bold text-[#2A0845] mb-4">My Analytical Journey</h3>
                 <p className="text-[#333333] leading-relaxed mb-3">
@@ -383,10 +395,10 @@ export default function Portfolio() {
                       className="px-4 py-2 bg-[#2A0845] text-white rounded-full text-sm font-medium cursor-pointer"
                       whileHover={{ scale: 1.1, backgroundColor: '#1A0530' }}
                       whileTap={{ scale: 0.95 }}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                      whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
+                      transition={{ type: "spring", stiffness: 120, damping: 10, delay: idx * 0.08 }}
                     >
                       {industry}
                     </motion.span>
@@ -399,7 +411,7 @@ export default function Portfolio() {
       </section>
 
       {/* My Methodology Framework */}
-      <section id="experience" className="py-20 px-6 bg-white">
+      <section id="experience" className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             className="text-4xl font-bold text-[#2A0845] mb-16 text-center"
@@ -423,8 +435,8 @@ export default function Portfolio() {
                 className="relative"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ type: "spring", stiffness: 80, damping: 12, delay: isMobile ? 0.05 : idx * 0.12 }}
               >
                 {/* Connection arrow */}
                 {idx < 3 && (
@@ -433,7 +445,7 @@ export default function Portfolio() {
                     initial={{ width: 0 }}
                     whileInView={{ width: '24px' }}
                     viewport={{ once: true }}
-                    transition={{ delay: idx * 0.15 + 0.3 }}
+                    transition={{ delay: idx * 0.12 + 0.25 }}
                   ></motion.div>
                 )}
 
@@ -461,7 +473,7 @@ export default function Portfolio() {
       </section>
 
       {/* Technical Toolbox */}
-      <section className="py-20 px-6 bg-[#D4C3F3]">
+      <section className="py-20 px-6 bg-[#D4C3F3] overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             className="text-4xl font-bold text-[#2A0845] mb-16 text-center"
@@ -493,8 +505,8 @@ export default function Portfolio() {
                 className="bg-white rounded-2xl p-8 shadow-lg border border-[#000000]/10"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ type: "spring", stiffness: 80, damping: 12, delay: isMobile ? 0.05 : idx * 0.12 }}
                 whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(42, 8, 69, 0.15)' }}
               >
                 <h3 className="text-xl font-bold text-[#2A0845] mb-6">{toolbox.category}</h3>
@@ -503,10 +515,10 @@ export default function Portfolio() {
                     <motion.li
                       key={sidx}
                       className="flex items-start gap-3 text-[#333333]"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, x: isMobile ? 0 : -20, y: isMobile ? 10 : 0 }}
+                      whileInView={{ opacity: 1, x: 0, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: idx * 0.15 + sidx * 0.08 }}
+                      transition={{ duration: 0.3, delay: isMobile ? sidx * 0.05 : idx * 0.1 + sidx * 0.05 }}
                       whileHover={{ x: 5 }}
                     >
                       <motion.span
@@ -525,7 +537,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Grid */}
-      <section id="projects" className="py-20 px-6 bg-white">
+      <section id="projects" className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             className="text-4xl font-bold text-[#2A0845] mb-16 text-center"
@@ -571,10 +583,10 @@ export default function Portfolio() {
               <motion.div
                 key={idx}
                 className="bg-white rounded-2xl overflow-hidden border border-[#000000] shadow-lg flex flex-col h-full"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.2 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ type: "spring", stiffness: 60, damping: 14, delay: isMobile ? 0.05 : idx * 0.12 }}
                 whileHover={{ y: -10, boxShadow: '0 25px 50px rgba(42, 8, 69, 0.2)' }}
               >
                 {/* Project Image Placeholder */}
@@ -601,7 +613,7 @@ export default function Portfolio() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: idx * 0.2 + 0.1 }}
+                    transition={{ delay: isMobile ? 0.05 : idx * 0.12 + 0.05 }}
                   >
                     {project.title}
                   </motion.h3>
@@ -621,7 +633,7 @@ export default function Portfolio() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: idx * 0.2 + 0.2 }}
+                    transition={{ delay: isMobile ? 0.1 : idx * 0.12 + 0.1 }}
                   >
                     {project.description}
                   </motion.p>
@@ -635,7 +647,7 @@ export default function Portfolio() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: idx * 0.2 + tidx * 0.05 }}
+                        transition={{ delay: isMobile ? tidx * 0.03 : idx * 0.12 + tidx * 0.03 }}
                         whileHover={{ scale: 1.1, backgroundColor: '#2A0845', color: '#FFFFFF' }}
                       >
                         {tool}
