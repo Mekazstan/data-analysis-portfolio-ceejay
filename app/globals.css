@@ -142,3 +142,41 @@
 .glow-button {
   animation: glow-pulse 2s ease-in-out infinite;
 }
+
+@keyframes text-glow-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes aura-pulse {
+  0%, 100% {
+    text-shadow: 0 0 4px rgba(139, 92, 246, 0.15), 0 0 10px rgba(139, 92, 246, 0.05);
+  }
+  50% {
+    text-shadow: 0 0 12px rgba(139, 92, 246, 0.5), 0 0 24px rgba(139, 92, 246, 0.25), 0 0 35px rgba(212, 195, 243, 0.2);
+  }
+}
+
+.logo-glow-text {
+  background: linear-gradient(
+    90deg,
+    #2A0845 0%,
+    #2A0845 35%,
+    #9061F9 50%,
+    #2A0845 65%,
+    #2A0845 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-glow-shimmer 4s linear infinite, aura-pulse 3s ease-in-out infinite;
+  display: inline-block;
+  padding-right: 4px; /* prevents clipping of glow / italic ends */
+  margin-right: -4px;
+}
+

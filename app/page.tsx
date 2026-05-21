@@ -59,9 +59,8 @@ export default function Portfolio() {
     <div className="bg-[#D4C3F3] min-h-screen text-[#000000]">
       {/* Fixed Navigation Bar */}
       <motion.nav
-        className={`fixed top-0 w-full z-50 ${
-          isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 w-full z-50 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -73,7 +72,7 @@ export default function Portfolio() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            CeeJay<span className="text-[#D4C3F3]">.</span>
+            Meet <span className="logo-glow-text">CeeJay</span><span className="text-[#D4C3F3]">.</span>
           </motion.div>
 
           {/* Navigation Links & CTA */}
@@ -719,9 +718,9 @@ export default function Portfolio() {
                 whileTap={{ scale: 0.95 }}
                 {...(idx === 0
                   ? {
-                      className: 'flex items-center justify-center gap-3 px-8 py-3 bg-white text-[#2A0845] rounded-full font-semibold',
-                      onHoverStart: undefined,
-                    }
+                    className: 'flex items-center justify-center gap-3 px-8 py-3 bg-white text-[#2A0845] rounded-full font-semibold',
+                    onHoverStart: undefined,
+                  }
                   : {})}
               >
                 <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ repeat: Infinity, duration: 2, delay: idx * 0.3 }}>
