@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, Download, Github, Linkedin, Mail, ArrowRight, Database, BarChart3, Code2, FileText } from 'lucide-react';
+import { ChevronDown, Download, Github, Linkedin, Mail, ArrowRight, Database, BarChart3, Code2, FileText, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -37,6 +37,7 @@ export default function Portfolio() {
   const [activeNav, setActiveNav] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,8 +72,9 @@ export default function Portfolio() {
     <div className="bg-[#D4C3F3] min-h-screen text-[#000000] overflow-x-hidden">
       {/* Fixed Navigation Bar */}
       <motion.nav
-        className={`fixed top-0 w-full z-50 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-          }`}
+        className={`fixed top-0 w-full z-50 transition-colors duration-300 ${
+          isScrolled || isMenuOpen ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -124,8 +126,69 @@ export default function Portfolio() {
               <Download size={16} />
               Resume
             </motion.button>
+
+            {/* Mobile Menu Button */}
+            <div className="flex md:hidden items-center">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-[#2A0845] p-2 hover:bg-[#2A0845]/10 rounded-full transition-colors focus:outline-none cursor-pointer"
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden w-full bg-white/98 backdrop-blur-md border-t border-[#000000]/10 shadow-xl overflow-hidden absolute left-0 top-[100%] z-40"
+            >
+              <div className="px-6 py-6 flex flex-col gap-5">
+                {['About', 'Experience', 'Projects', 'Contact'].map((item, idx) => (
+                  <motion.button
+                    key={item}
+                    onClick={() => {
+                      scrollToSection(item.toLowerCase());
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-left text-base font-semibold text-[#000000] hover:text-[#2A0845] py-1 transition-colors cursor-pointer"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                  >
+                    {item}
+                  </motion.button>
+                ))}
+                
+                <div className="h-px bg-[#000000]/10 my-1" />
+
+                {/* Mobile Resume Button */}
+                <motion.button
+                  onClick={() => {
+                    downloadResume();
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-[#2A0845] text-white rounded-full shadow-lg font-semibold text-sm cursor-pointer"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Download size={16} />
+                  Resume
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Hero Section */}
