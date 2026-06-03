@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
-const roles = ['Data Analyst', 'Excel Queen', 'SQL Star', 'Data Storyteller', 'BI Specialist', 'Insight Expert'];
+const roles = ['Data Analyst', 'Data Storyteller', 'BI Specialist', 'Insight Expert'];
 
 const DynamicRole = () => {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -65,7 +65,10 @@ export default function Portfolio() {
   };
 
   const downloadResume = () => {
-    alert('Resume download functionality - connect to your actual resume file');
+    const link = document.createElement('a');
+    link.href = '/resume.pdf';
+    link.download = 'Hope_Jonathan_Resume.pdf';
+    link.click();
   };
 
   return (
@@ -86,7 +89,7 @@ export default function Portfolio() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Meet <span className="logo-glow-text">CeeJay</span><span className="text-[#D4C3F3]">.</span>
+            Meet <span className="logo-glow-text">Me</span><span className="text-[#D4C3F3]">.</span>
           </motion.div>
 
           {/* Navigation Links & CTA */}
@@ -209,7 +212,7 @@ export default function Portfolio() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                  Hi, I&apos;m Chioma Jonathan
+                  Hi, I&apos;m Hope Jonathan
                 </motion.h1>
                 <div className="min-h-12">
                   <DynamicRole />
@@ -222,8 +225,8 @@ export default function Portfolio() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                I transform raw data into strategic business decisions. By combining SQL queries with
-                creative visualization, I help organizations unlock hidden patterns and drive measurable growth.
+                I turn messy datasets into clear business decisions. From SQL queries and Python scripts 
+                to Power BI dashboards, I help teams uncover patterns, track KPIs, and act on data with confidence.
               </motion.p>
 
               {/* Dual CTAs */}
@@ -244,7 +247,10 @@ export default function Portfolio() {
                     <ArrowRight size={18} />
                   </motion.div>
                 </motion.button>
-                <motion.button
+                <motion.a
+                  href="https://wa.me/2347081145509?text=Hi%20Hope%2C%20I%20came%20across%20your%20portfolio%20and%20I%27d%20love%20to%20collaborate!"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-8 py-3.5 border-2 border-[#D4C3F3] text-[#2A0845] rounded-full font-semibold glow-button relative overflow-hidden group"
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.95 }}
@@ -257,7 +263,7 @@ export default function Portfolio() {
                     transition={{ repeat: Infinity, duration: 2 }}
                   />
                   <span className="relative z-10 flex items-center justify-center">Let&apos;s Collaborate</span>
-                </motion.button>
+                </motion.a>
               </motion.div>
             </motion.div>
 
@@ -282,26 +288,155 @@ export default function Portfolio() {
                   whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(42, 8, 69, 0.2)' }}
                 >
                   <div className="aspect-square bg-gradient-to-br from-[#2A0845]/5 to-[#D4C3F3]/30 rounded-2xl flex items-center justify-center overflow-hidden">
-                    {/* Animated data visualization placeholder */}
-                    <div className="relative w-full h-full flex items-center justify-center">
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#2A0845]/20 to-transparent"></div>
-                      <div className="flex flex-col items-center gap-4 relative z-10">
-                        <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ repeat: Infinity, duration: 3 }}>
-                          <BarChart3 size={48} className="text-[#2A0845]/60" />
-                        </motion.div>
-                        <div className="text-center">
-                          <p className="text-sm font-semibold text-[#2A0845]/70">Analytics Ready</p>
-                          <p className="text-xs text-[#666666]">Let&apos;s explore your data</p>
-                        </div>
-                      </div>
-                    </div>
+                    <svg
+                      width="100%"
+                      viewBox="0 0 680 680"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-full h-full"
+                    >
+                      <title>Analytics dashboard visualization</title>
+                      <desc>Animated bar chart, sparkline, and KPI cards styled in deep purple and lavender</desc>
+
+                      <defs>
+                        <style>{`
+                          @keyframes riseBar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+                          @keyframes drawLine { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+                          @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+                          @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+                          .b1 { animation: riseBar 0.5s cubic-bezier(.22,.68,0,1.2) 0.1s both; transform-origin: bottom; }
+                          .b2 { animation: riseBar 0.5s cubic-bezier(.22,.68,0,1.2) 0.2s both; transform-origin: bottom; }
+                          .b3 { animation: riseBar 0.5s cubic-bezier(.22,.68,0,1.2) 0.3s both; transform-origin: bottom; }
+                          .b4 { animation: riseBar 0.5s cubic-bezier(.22,.68,0,1.2) 0.4s both; transform-origin: bottom; }
+                          .b5 { animation: riseBar 0.5s cubic-bezier(.22,.68,0,1.2) 0.5s both; transform-origin: bottom; }
+                          .b6 { animation: riseBar 0.5s cubic-bezier(.22,.68,0,1.2) 0.6s both; transform-origin: bottom; }
+                          .sparkline { stroke-dasharray: 400; animation: drawLine 1.2s ease-out 0.8s both; }
+                          .fadein { animation: fadeUp 0.5s ease-out 0.9s both; }
+                          .dot-pulse { animation: pulse 2s ease-in-out 1.4s infinite; }
+                        `}</style>
+                      </defs>
+
+                      {/* Background card */}
+                      <rect x="40" y="40" width="600" height="600" rx="24" fill="white" stroke="#E8E0F5" strokeWidth="1" />
+
+                      {/* Header row */}
+                      <text x="72" y="88" fontFamily="sans-serif" fontSize="13" fontWeight="600" fill="#2A0845">Revenue Overview</text>
+                      <text x="72" y="106" fontFamily="sans-serif" fontSize="11" fill="#9980C4">Jan – Jun 2026</text>
+                      {/* Live dot */}
+                      <circle cx="592" cy="88" r="5" fill="#2A0845" className="dot-pulse" />
+                      <text x="580" y="92" fontFamily="sans-serif" fontSize="10" fill="#9980C4" textAnchor="end">LIVE</text>
+
+                      {/* Divider */}
+                      <line x1="72" y1="118" x2="608" y2="118" stroke="#EDE8F7" strokeWidth="0.8" />
+
+                      {/* KPI Cards */}
+                      {/* Card 1 */}
+                      <rect x="72" y="130" width="156" height="66" rx="12" fill="#F5F0FF" />
+                      <text x="88" y="153" fontFamily="sans-serif" fontSize="11" fill="#7A5CAA">Total Revenue</text>
+                      <text x="88" y="178" fontFamily="sans-serif" fontSize="20" fontWeight="700" fill="#2A0845" className="fadein">$2.4M</text>
+                      <text x="200" y="178" fontFamily="sans-serif" fontSize="11" fill="#5BB85B" className="fadein">↑ 18%</text>
+
+                      {/* Card 2 */}
+                      <rect x="244" y="130" width="156" height="66" rx="12" fill="#F5F0FF" />
+                      <text x="260" y="153" fontFamily="sans-serif" fontSize="11" fill="#7A5CAA">Active Users</text>
+                      <text x="260" y="178" fontFamily="sans-serif" fontSize="20" fontWeight="700" fill="#2A0845" className="fadein">10.4K</text>
+                      <text x="360" y="178" fontFamily="sans-serif" fontSize="11" fill="#5BB85B" className="fadein">↑ 12%</text>
+
+                      {/* Card 3 - dark */}
+                      <rect x="416" y="130" width="164" height="66" rx="12" fill="#2A0845" />
+                      <text x="432" y="153" fontFamily="sans-serif" fontSize="11" fill="#C9B8F0">Retention Rate</text>
+                      <text x="432" y="178" fontFamily="sans-serif" fontSize="20" fontWeight="700" fill="white" className="fadein">94.2%</text>
+                      <text x="537" y="178" fontFamily="sans-serif" fontSize="11" fill="#C9B8F0" className="fadein">↑ 3%</text>
+
+                      {/* Chart label */}
+                      <text x="72" y="226" fontFamily="sans-serif" fontSize="11" fontWeight="600" fill="#2A0845">Monthly Revenue</text>
+
+                      {/* Baseline */}
+                      <line x1="72" y1="440" x2="580" y2="440" stroke="#EDE8F7" strokeWidth="1" />
+
+                      {/* Gridlines */}
+                      <line x1="72" y1="360" x2="580" y2="360" stroke="#F0EBF9" strokeWidth="0.6" strokeDasharray="4 4" />
+                      <line x1="72" y1="320" x2="580" y2="320" stroke="#F0EBF9" strokeWidth="0.6" strokeDasharray="4 4" />
+                      <line x1="72" y1="280" x2="580" y2="280" stroke="#F0EBF9" strokeWidth="0.6" strokeDasharray="4 4" />
+                      <line x1="72" y1="240" x2="580" y2="240" stroke="#F0EBF9" strokeWidth="0.6" strokeDasharray="4 4" />
+
+                      {/* Y-axis labels */}
+                      <text x="68" y="444" fontFamily="sans-serif" fontSize="10" fill="#B8A8D8" textAnchor="end">0</text>
+                      <text x="68" y="364" fontFamily="sans-serif" fontSize="10" fill="#B8A8D8" textAnchor="end">200</text>
+                      <text x="68" y="284" fontFamily="sans-serif" fontSize="10" fill="#B8A8D8" textAnchor="end">400</text>
+
+                      {/* Bars */}
+                      <rect x="88"  y="300" width="52" height="140" rx="6" fill="#D4C3F3" className="b1" />
+                      <rect x="168" y="280" width="52" height="160" rx="6" fill="#C4AFFE" className="b2" />
+                      <rect x="248" y="330" width="52" height="110" rx="6" fill="#D4C3F3" className="b3" />
+                      <rect x="328" y="260" width="52" height="180" rx="6" fill="#2A0845" className="b4" />
+                      <rect x="408" y="285" width="52" height="155" rx="6" fill="#C4AFFE" className="b5" />
+                      <rect x="488" y="240" width="52" height="200" rx="6" fill="#2A0845" className="b6" />
+
+                      {/* Value label on tallest bar */}
+                      <text x="514" y="234" fontFamily="sans-serif" fontSize="10" fontWeight="700" fill="#2A0845" textAnchor="middle" className="fadein">$430K</text>
+
+                      {/* Month labels */}
+                      <text x="114" y="458" fontFamily="sans-serif" fontSize="10" fill="#9980C4" textAnchor="middle">Jan</text>
+                      <text x="194" y="458" fontFamily="sans-serif" fontSize="10" fill="#9980C4" textAnchor="middle">Feb</text>
+                      <text x="274" y="458" fontFamily="sans-serif" fontSize="10" fill="#9980C4" textAnchor="middle">Mar</text>
+                      <text x="354" y="458" fontFamily="sans-serif" fontSize="10" fill="#9980C4" textAnchor="middle">Apr</text>
+                      <text x="434" y="458" fontFamily="sans-serif" fontSize="10" fill="#9980C4" textAnchor="middle">May</text>
+                      <text x="514" y="458" fontFamily="sans-serif" fontSize="10" fill="#2A0845" fontWeight="600" textAnchor="middle">Jun</text>
+
+                      {/* Sparkline */}
+                      <polyline
+                        className="sparkline"
+                        points="114,300 194,280 274,330 354,260 434,285 514,240"
+                        fill="none"
+                        stroke="#2A0845"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        opacity="0.5"
+                      />
+                      {/* Sparkline dots */}
+                      <circle cx="114" cy="300" r="3" fill="#2A0845" opacity="0.5" className="fadein" />
+                      <circle cx="194" cy="280" r="3" fill="#2A0845" opacity="0.5" className="fadein" />
+                      <circle cx="274" cy="330" r="3" fill="#2A0845" opacity="0.5" className="fadein" />
+                      <circle cx="354" cy="260" r="3" fill="#2A0845" opacity="0.5" className="fadein" />
+                      <circle cx="434" cy="285" r="3" fill="#2A0845" opacity="0.5" className="fadein" />
+                      <circle cx="514" cy="240" r="4" fill="#2A0845" className="fadein" />
+
+                      {/* Bottom section label */}
+                      <text x="72" y="500" fontFamily="sans-serif" fontSize="11" fontWeight="600" fill="#2A0845">Segment Split</text>
+
+                      {/* Donut chart */}
+                      <circle cx="130" cy="560" r="34" fill="none" stroke="#EDE8F7" strokeWidth="12" />
+                      <circle cx="130" cy="560" r="34" fill="none" stroke="#2A0845" strokeWidth="12"
+                        strokeDasharray="117 213" strokeDashoffset="0" strokeLinecap="round" className="fadein" />
+                      <circle cx="130" cy="560" r="34" fill="none" stroke="#D4C3F3" strokeWidth="12"
+                        strokeDasharray="64 266" strokeDashoffset="-119" strokeLinecap="round" className="fadein" />
+                      <circle cx="130" cy="560" r="34" fill="none" stroke="#9B7EE0" strokeWidth="12"
+                        strokeDasharray="32 298" strokeDashoffset="-185" strokeLinecap="round" className="fadein" />
+                      <text x="130" y="557" fontFamily="sans-serif" fontSize="11" fontWeight="700" fill="#2A0845" textAnchor="middle">100%</text>
+                      <text x="130" y="569" fontFamily="sans-serif" fontSize="9" fill="#9980C4" textAnchor="middle">split</text>
+
+                      {/* Legend */}
+                      <rect x="190" y="530" width="10" height="10" rx="2" fill="#2A0845" />
+                      <text x="206" y="540" fontFamily="sans-serif" fontSize="10" fill="#2A0845">Enterprise 55%</text>
+                      <rect x="190" y="550" width="10" height="10" rx="2" fill="#D4C3F3" />
+                      <text x="206" y="560" fontFamily="sans-serif" fontSize="10" fill="#2A0845">SMB 30%</text>
+                      <rect x="190" y="570" width="10" height="10" rx="2" fill="#9B7EE0" />
+                      <text x="206" y="580" fontFamily="sans-serif" fontSize="10" fill="#2A0845">Consumer 15%</text>
+
+                      {/* Churn badge */}
+                      <rect x="430" y="528" width="148" height="52" rx="10" fill="#F5F0FF" />
+                      <text x="444" y="548" fontFamily="sans-serif" fontSize="10" fill="#7A5CAA">Churn Reduction</text>
+                      <text x="444" y="568" fontFamily="sans-serif" fontSize="18" fontWeight="700" fill="#2A0845" className="fadein">−18%</text>
+                      <text x="548" y="568" fontFamily="sans-serif" fontSize="10" fill="#5BB85B" className="fadein">✓ Target met</text>
+                    </svg>
                   </div>
 
                   {/* Stats mini-card inside */}
                   <div className="mt-6 grid grid-cols-2 gap-3">
                     {[
-                      { number: '4+', label: 'Major Projects', bg: 'bg-[#D4C3F3]/30' },
-                      { number: '10K+', label: 'Data Rows', bg: 'bg-[#2A0845]/5' },
+                      { number: '4+', label: 'Analytics Projects', bg: 'bg-[#D4C3F3]/30' },
+                      { number: '3.9K+', label: 'Customer Records', bg: 'bg-[#2A0845]/5' },
                     ].map((stat, idx) => (
                       <motion.div
                         key={idx}
@@ -334,9 +469,9 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             {[
-              { number: '4+', label: 'Major Analytics Projects' },
-              { number: '10K+', label: 'Rows Cleaned & Modeled' },
-              { number: '3+', label: 'Core Business Industries' },
+              { number: '4+', label: 'Analytics Projects Completed' },
+              { number: '630+', label: 'Survey Respondents Analyzed' },
+              { number: '3+', label: 'Industries: Health, Retail, Ops' },
             ].map((metric, idx) => (
               <motion.div
                 key={idx}
@@ -390,7 +525,7 @@ export default function Portfolio() {
                   <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-[#2A0845]/10 to-[#D4C3F3]/40">
                     <Image
                       src="/images/me.png"
-                      alt="Chioma Jonathan"
+                      alt="Hope Jonathan"
                       fill
                       className="object-cover"
                       priority
@@ -419,8 +554,9 @@ export default function Portfolio() {
               >
                 <h3 className="text-2xl font-bold text-[#2A0845] mb-4">My Philosophy</h3>
                 <p className="text-[#333333] leading-relaxed mb-3">
-                  I believe that great data work sits at the intersection of technical rigor and human insight.
-                  Every SQL query, every Python script, every dashboard tells a story—one that drives real business outcomes.
+                  I believe great data work sits at the intersection of technical rigor and human curiosity.
+                  Every SQL query, every Python script, every dashboard tells a story — one that drives real decisions
+                  and real outcomes for the teams that act on them.
                 </p>
                 <p className="text-[#333333] leading-relaxed">
                   My mission is to bridge the gap between raw data and actionable strategy, enabling teams to
@@ -439,12 +575,13 @@ export default function Portfolio() {
               >
                 <h3 className="text-2xl font-bold text-[#2A0845] mb-4">My Analytical Journey</h3>
                 <p className="text-[#333333] leading-relaxed mb-3">
-                  Starting with Excel pivot tables and simple SQL queries, I&apos;ve evolved into a full-stack data strategist.
-                  My toolkit now spans cloud databases, Python automation, and advanced visualization platforms.
+                  Starting with Excel pivot tables and Python scripts, I&apos;ve grown into an analyst who builds end-to-end
+                  pipelines — from raw data cleaning with Pandas to interactive Power BI dashboards stakeholders can act on.
                 </p>
                 <p className="text-[#333333] leading-relaxed">
-                  Over the past 4+ years, I&apos;ve worked across e-commerce, fintech, and SaaS environments,
-                  consistently uncovering insights that improved customer retention, reduced operational costs, and scaled revenue.
+                  My projects span healthcare (hospital readmission risk), retail (customer churn & shopping behaviour),
+                  and operations (furniture sales profitability) — consistently turning raw datasets into insights
+                  that reduce costs, improve retention, and flag risk early.
                 </p>
               </motion.div>
 
@@ -452,7 +589,7 @@ export default function Portfolio() {
               <div>
                 <p className="text-sm font-semibold text-[#2A0845] mb-3 uppercase tracking-wide">Industry Focus</p>
                 <div className="flex flex-wrap gap-3">
-                  {['E-Commerce', 'Finance', 'Tech/SaaS', 'Logistics'].map((industry, idx) => (
+                  {['Healthcare', 'Retail & E-Commerce', 'Operations', 'Customer Analytics'].map((industry, idx) => (
                     <motion.span
                       key={industry}
                       className="px-4 py-2 bg-[#2A0845] text-white rounded-full text-sm font-medium cursor-pointer"
@@ -473,8 +610,116 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Work Experience Section */}
+      <section className="py-20 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2
+            className="text-4xl font-bold text-[#2A0845] mb-16 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Experience
+          </motion.h2>
+
+          <div className="space-y-6 max-w-4xl mx-auto">
+
+            {/* QwantomHub */}
+            <motion.div
+              className="bg-white rounded-2xl p-8 border border-[#000000]/10 shadow-lg"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ y: -5, boxShadow: '0 15px 30px rgba(42, 8, 69, 0.1)' }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-[#2A0845]">Data Analytics Instructor</h3>
+                  <a
+                    href="https://www.qwantomhub.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#7A5CAA] font-semibold hover:underline text-base"
+                  >
+                    QwantomHub Technologies
+                  </a>
+                  <span className="text-[#666666] text-sm"> — Abuja, FCT (Part-time)</span>
+                </div>
+                <span className="text-sm font-medium text-white bg-[#2A0845] px-4 py-1.5 rounded-full whitespace-nowrap self-start">
+                  2025 – Present
+                </span>
+              </div>
+              <ul className="space-y-2 text-[#333333]">
+                {[
+                  'Deliver hands-on data analytics training covering Python (Pandas), SQL, Excel, and Power BI to students and corporate professionals.',
+                  'Design and structure course curricula, practical exercises, and real-world datasets to reinforce analytical thinking.',
+                  'Mentor students through end-to-end analytics projects — from data cleaning to dashboard presentation.',
+                  'Translate complex data concepts into clear, beginner-friendly lessons for non-technical learners.',
+                ].map((point, i) => (
+                  <motion.li
+                    key={i}
+                    className="flex items-start gap-3"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                  >
+                    <span className="w-2 h-2 bg-[#2A0845] rounded-full mt-2 flex-shrink-0" />
+                    <span>{point}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Freelance */}
+            <motion.div
+              className="bg-white rounded-2xl p-8 border border-[#000000]/10 shadow-lg"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              whileHover={{ y: -5, boxShadow: '0 15px 30px rgba(42, 8, 69, 0.1)' }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-[#2A0845]">Operations & Reporting Analyst</h3>
+                  <span className="text-[#7A5CAA] font-semibold text-base">Freelance, Self-Employed</span>
+                  <span className="text-[#666666] text-sm"> — Remote</span>
+                </div>
+                <span className="text-sm font-medium text-white bg-[#2A0845] px-4 py-1.5 rounded-full whitespace-nowrap self-start">
+                  Jan 2025 – Present
+                </span>
+              </div>
+              <ul className="space-y-2 text-[#333333]">
+                {[
+                  'Built and maintained Excel-based reports and dashboards to track operational metrics, cutting reporting turnaround from 3 days to 1 day.',
+                  'Cleaned raw operational data using Python (Pandas) and Excel Power Query to ensure accuracy before analysis.',
+                  'Designed interactive Power BI and Excel dashboards to track KPIs across sales, marketing, and customer engagement.',
+                  'Collaborated with non-technical stakeholders to translate data findings into clear, actionable recommendations.',
+                ].map((point, i) => (
+                  <motion.li
+                    key={i}
+                    className="flex items-start gap-3"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                  >
+                    <span className="w-2 h-2 bg-[#2A0845] rounded-full mt-2 flex-shrink-0" />
+                    <span>{point}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* My Methodology Framework */}
-      <section id="experience" className="py-20 px-6 bg-white overflow-hidden">
+      <section id="methodology" className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             className="text-4xl font-bold text-[#2A0845] mb-16 text-center"
@@ -552,15 +797,15 @@ export default function Portfolio() {
             {[
               {
                 category: 'Languages & Databases',
-                skills: ['SQL (PostgreSQL, MySQL)', 'Python (Pandas, NumPy, Scikit-learn)', 'Excel VBA'],
+                skills: ['SQL (PostgreSQL, MySQL)', 'Python (Pandas, NumPy)', 'Excel (Power Query, Pivot Tables)', 'Google Sheets'],
               },
               {
                 category: 'Visualization & BI',
-                skills: ['Tableau (Advanced)', 'Power BI (DAX, M)', 'Excel (Advanced)', 'Google Data Studio'],
+                skills: ['Power BI (DAX, Reports)', 'Excel Dashboards', 'Seaborn & Matplotlib', 'Google Data Studio'],
               },
               {
                 category: 'Core Competencies',
-                skills: ['Exploratory Data Analysis', 'ETL Pipeline Design', 'A/B Testing & Experimentation', 'Statistical Modeling'],
+                skills: ['Exploratory Data Analysis (EDA)', 'Data Cleaning & Feature Engineering', 'KPI Tracking & Dashboard Design', 'Stakeholder Communication'],
               },
             ].map((toolbox, idx) => (
               <motion.div
@@ -615,32 +860,44 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {[
               {
-                title: 'E-Commerce Customer Churn Analysis',
-                metric: 'Impact: Reduced churn by 18%',
+                title: 'Customer Shopping Behaviour Analysis',
+                metric: 'Impact: 10 business questions answered across 3.9K customers',
                 description:
-                  'Built a predictive churn model analyzing 50K+ customer transactions. Identified key behavioral patterns and segmented customers for targeted retention campaigns, directly contributing to a $2.4M revenue recovery.',
-                tools: ['SQL', 'Python', 'Tableau'],
+                  'Analyzed 3,900+ customer records to uncover revenue patterns by gender, age group, and subscription status. Identified top-rated products, compared shipping modes, and segmented customers into New, Returning, and Loyal tiers — delivering a full Power BI dashboard with actionable retention insights.',
+                tools: ['Python', 'Pandas', 'Power BI'],
+                image: '/images/project2.png',
+                repoLink: 'https://colab.research.google.com/drive/1y5mSnFqSQ_Y5O7etzXi2GX211CpXyQ45',
+                liveLink: 'https://colab.research.google.com/drive/1y5mSnFqSQ_Y5O7etzXi2GX211CpXyQ45',
               },
               {
-                title: 'Finance Fraud Detection Dashboard',
-                metric: 'Impact: Detected 94% of fraudulent transactions',
+                title: 'Survey Analysis of Data Professionals',
+                metric: 'Impact: 630 respondents analyzed across 7 job titles',
                 description:
-                  'Designed a real-time monitoring system using Power BI that flags suspicious activities across 5M+ transactions monthly. Reduced fraudulent charges by $800K annually while maintaining a 99.2% legitimate transaction accuracy rate.',
-                tools: ['SQL', 'Power BI', 'Python'],
+                  'Conducted end-to-end survey analysis on data professionals worldwide — covering salary benchmarks by job title, programming language preferences, work/life balance scores, and difficulty breaking into the field. Built an interactive Power BI dashboard to surface insights for career planning.',
+                tools: ['Python', 'Power BI', 'Excel'],
+                image: '/images/project1.png',
+                repoLink: '#',
+                liveLink: '#',
               },
               {
-                title: 'SaaS Product Analytics & Growth Funnel',
-                metric: 'Impact: Increased MRR by 32%',
+                title: 'Hospital Readmission Analysis',
+                metric: 'Impact: 10+ clinical variables analyzed for readmission risk',
                 description:
-                  'Conducted a comprehensive funnel analysis of 10K+ users across signup, onboarding, and activation phases. Provided actionable insights that optimized conversion rates and increased Monthly Recurring Revenue from $125K to $165K.',
-                tools: ['SQL', 'Google Analytics', 'Tableau'],
+                  'Analyzed clinical data to identify key drivers of hospital readmission using EDA — missing value assessment, outlier detection, and correlation analysis with Pandas and Seaborn. Performed feature engineering on medical specialty and medication variables, then built a Power BI dashboard to flag high-risk patient segments.',
+                tools: ['Python', 'Seaborn', 'Power BI', 'Excel'],
+                image: null,
+                repoLink: 'https://colab.research.google.com/drive/1jbaq4k1x6pTZCTXT_cKVMvpC34Fu2bTB',
+                liveLink: 'https://colab.research.google.com/drive/1jbaq4k1x6pTZCTXT_cKVMvpC34Fu2bTB',
               },
               {
-                title: 'Logistics Optimization & Route Analysis',
-                metric: 'Impact: Reduced delivery time by 14%',
+                title: 'Furniture Sales Profit Leak Analysis',
+                metric: 'Impact: Uncovered loss-making segments in $742K sales data',
                 description:
-                  'Analyzed 200K+ delivery records to identify bottlenecks in route optimization. Recommended data-driven changes that cut average delivery time, improved customer satisfaction scores by 22%, and reduced operational costs by 11%.',
-                tools: ['SQL', 'Python', 'Excel'],
+                  'Analyzed furniture sales data using Excel Pivot Tables to surface revenue drivers and profitability gaps. Identified Tables (-8.5%) and Bookcases (-3.0%) as loss-making sub-categories and recommended pricing and shipping changes. Evaluated delivery mode efficiency to support logistics optimization.',
+                tools: ['Excel', 'Pivot Tables', 'Data Visualization'],
+                image: null,
+                repoLink: '#',
+                liveLink: '#',
               },
             ].map((project, idx) => (
               <motion.div
@@ -654,19 +911,23 @@ export default function Portfolio() {
               >
                 {/* Project Image Placeholder */}
                 <div className="aspect-video bg-gradient-to-br from-[#2A0845]/10 to-[#D4C3F3]/20 flex items-center justify-center relative overflow-hidden group">
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <motion.div className="relative z-10 flex flex-col items-center gap-2" whileHover={{ scale: 1.1 }}>
+                      <BarChart3 size={48} className="text-[#2A0845]/50" />
+                      <p className="text-sm font-semibold text-[#666666]">Dashboard Preview</p>
+                    </motion.div>
+                  )}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-t from-[#2A0845]/20 to-transparent opacity-0 group-hover:opacity-100"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
-                  ></motion.div>
-                  <motion.div
-                    className="relative z-10 flex flex-col items-center gap-2"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <BarChart3 size={48} className="text-[#2A0845]/50" />
-                    <p className="text-sm font-semibold text-[#666666]">Dashboard Preview</p>
-                  </motion.div>
+                  />
                 </div>
 
                 {/* Card Body */}
@@ -720,20 +981,26 @@ export default function Portfolio() {
 
                   {/* CTA Buttons */}
                   <div className="flex gap-3 mt-auto">
-                    <motion.button
-                      className="flex-1 px-4 py-2.5 border-2 border-[#2A0845] text-[#2A0845] rounded-lg font-semibold text-sm"
+                    <motion.a
+                      href={project.repoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 px-4 py-2.5 border-2 border-[#2A0845] text-[#2A0845] rounded-lg font-semibold text-sm text-center"
                       whileHover={{ backgroundColor: '#2A0845', color: '#FFFFFF', scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Explore Repository
-                    </motion.button>
-                    <motion.button
-                      className="flex-1 px-4 py-2.5 bg-[#2A0845] text-white rounded-lg font-semibold text-sm"
+                      View Notebook
+                    </motion.a>
+                    <motion.a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 px-4 py-2.5 bg-[#2A0845] text-white rounded-lg font-semibold text-sm text-center"
                       whileHover={{ backgroundColor: '#1A0530', scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Launch App
-                    </motion.button>
+                      Open in Colab
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>
@@ -776,8 +1043,8 @@ export default function Portfolio() {
           {/* Contact Links */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             {[
-              { icon: Mail, label: 'Send an Email', href: 'mailto:alex@example.com', external: false },
-              { icon: Linkedin, label: 'LinkedIn Profile', href: 'https://linkedin.com', external: true },
+              { icon: Mail, label: 'Send an Email', href: 'mailto:hopejonathan958@gmail.com', external: false },
+              { icon: Linkedin, label: 'LinkedIn Profile', href: 'https://linkedin.com/in/hope.jonathan', external: true },
               { icon: Github, label: 'GitHub', href: 'https://github.com', external: true },
             ].map((link, idx) => (
               <motion.a
@@ -825,8 +1092,8 @@ export default function Portfolio() {
                   link === 'GitHub'
                     ? 'https://github.com'
                     : link === 'LinkedIn'
-                      ? 'https://linkedin.com'
-                      : 'mailto:alex@example.com'
+                      ? 'https://linkedin.com/in/hope.jonathan'
+                      : 'mailto:hopejonathan958@gmail.com'
                 }
                 className="text-white/80"
                 initial={{ opacity: 0, y: 10 }}
@@ -846,7 +1113,7 @@ export default function Portfolio() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            &copy; 2026 Chioma Jonathan. All rights reserved.
+            &copy; 2026 Hope Jonathan. All rights reserved.
           </motion.p>
         </div>
       </motion.footer>

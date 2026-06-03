@@ -7,7 +7,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Chioma Jonathan - Data Analyst',
+  title: 'Hope Jonathan - Data Analyst',
   description: 'Data Analyst | Turning complex datasets into actionable business strategies and interactive narratives',
   generator: 'v0.app',
   icons: {
