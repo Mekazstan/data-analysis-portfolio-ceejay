@@ -33,6 +33,60 @@ const DynamicRole = () => {
   );
 };
 
+const ProjectSlideshow = ({ images, title }: { images: string[]; title: string }) => {
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images]);
+
+  return (
+    <div className="relative w-full h-full">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIdx}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={images[currentIdx]}
+            alt={`${title} - Preview ${currentIdx + 1}`}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </motion.div>
+      </AnimatePresence>
+      
+      {/* Slide Indicators */}
+      {images.length > 1 && (
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-xs">
+          {images.map((_, sIdx) => (
+            <button
+              key={sIdx}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setCurrentIdx(sIdx);
+              }}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                currentIdx === sIdx ? 'bg-white w-3' : 'bg-white/50'
+              }`}
+              aria-label={`Go to slide ${sIdx + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function Portfolio() {
   const [activeNav, setActiveNav] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -864,7 +918,7 @@ export default function Portfolio() {
                 metric: 'Impact: 10 business questions answered across 3.9K customers',
                 description:
                   'Analyzed 3,900+ customer records to uncover revenue patterns by gender, age group, and subscription status. Identified top-rated products, compared shipping modes, and segmented customers into New, Returning, and Loyal tiers — delivering a full Power BI dashboard with actionable retention insights.',
-                tools: ['Python', 'Pandas', 'Power BI'],
+                tools: ['Python', 'SQL', 'Power BI'],
                 image: '/images/project2.png',
                 repoLink: 'https://colab.research.google.com/drive/1y5mSnFqSQ_Y5O7etzXi2GX211CpXyQ45',
                 liveLink: 'https://colab.research.google.com/drive/1y5mSnFqSQ_Y5O7etzXi2GX211CpXyQ45',
@@ -874,7 +928,7 @@ export default function Portfolio() {
                 metric: 'Impact: 630 respondents analyzed across 7 job titles',
                 description:
                   'Conducted end-to-end survey analysis on data professionals worldwide — covering salary benchmarks by job title, programming language preferences, work/life balance scores, and difficulty breaking into the field. Built an interactive Power BI dashboard to surface insights for career planning.',
-                tools: ['Python', 'Power BI', 'Excel'],
+                tools: ['Power BI', 'Excel'],
                 image: '/images/project1.png',
                 repoLink: '#',
                 liveLink: '#',
@@ -884,8 +938,12 @@ export default function Portfolio() {
                 metric: 'Impact: 10+ clinical variables analyzed for readmission risk',
                 description:
                   'Analyzed clinical data to identify key drivers of hospital readmission using EDA — missing value assessment, outlier detection, and correlation analysis with Pandas and Seaborn. Performed feature engineering on medical specialty and medication variables, then built a Power BI dashboard to flag high-risk patient segments.',
-                tools: ['Python', 'Seaborn', 'Power BI', 'Excel'],
-                image: null,
+                tools: ['Python', 'Seaborn'],
+                image: [
+                  '/images/hospital_analysis.png',
+                  '/images/hospital_analysis2.png',
+                  '/images/hospital_analysis3.png',
+                ],
                 repoLink: 'https://colab.research.google.com/drive/1jbaq4k1x6pTZCTXT_cKVMvpC34Fu2bTB',
                 liveLink: 'https://colab.research.google.com/drive/1jbaq4k1x6pTZCTXT_cKVMvpC34Fu2bTB',
               },
@@ -895,9 +953,9 @@ export default function Portfolio() {
                 description:
                   'Analyzed furniture sales data using Excel Pivot Tables to surface revenue drivers and profitability gaps. Identified Tables (-8.5%) and Bookcases (-3.0%) as loss-making sub-categories and recommended pricing and shipping changes. Evaluated delivery mode efficiency to support logistics optimization.',
                 tools: ['Excel', 'Pivot Tables', 'Data Visualization'],
-                image: null,
-                repoLink: '#',
-                liveLink: '#',
+                image: '/images/furniture_sales.png',
+                repoLink: 'https://github.com/Analystceejay/Furniture-Sales-Analysis',
+                liveLink: 'https://github.com/Analystceejay/Furniture-Sales-Analysis',
               },
             ].map((project, idx) => (
               <motion.div
@@ -912,12 +970,16 @@ export default function Portfolio() {
                 {/* Project Image Placeholder */}
                 <div className="aspect-video bg-gradient-to-br from-[#2A0845]/10 to-[#D4C3F3]/20 flex items-center justify-center relative overflow-hidden group">
                   {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    Array.isArray(project.image) ? (
+                      <ProjectSlideshow images={project.image} title={project.title} />
+                    ) : (
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    )
                   ) : (
                     <motion.div className="relative z-10 flex flex-col items-center gap-2" whileHover={{ scale: 1.1 }}>
                       <BarChart3 size={48} className="text-[#2A0845]/50" />
@@ -925,7 +987,7 @@ export default function Portfolio() {
                     </motion.div>
                   )}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-[#2A0845]/20 to-transparent opacity-0 group-hover:opacity-100"
+                    className="absolute inset-0 bg-gradient-to-t from-[#2A0845]/20 to-transparent opacity-0 group-hover:opacity-100 pointer-events-none"
                     transition={{ duration: 0.3 }}
                   />
                 </div>
@@ -1045,7 +1107,7 @@ export default function Portfolio() {
             {[
               { icon: Mail, label: 'Send an Email', href: 'mailto:hopejonathan958@gmail.com', external: false },
               { icon: Linkedin, label: 'LinkedIn Profile', href: 'https://linkedin.com/in/hope.jonathan', external: true },
-              { icon: Github, label: 'GitHub', href: 'https://github.com', external: true },
+              { icon: Github, label: 'GitHub', href: 'https://github.com/Analystceejay', external: true },
             ].map((link, idx) => (
               <motion.a
                 key={idx}
@@ -1090,7 +1152,7 @@ export default function Portfolio() {
                 key={link}
                 href={
                   link === 'GitHub'
-                    ? 'https://github.com'
+                    ? 'https://github.com/Analystceejay'
                     : link === 'LinkedIn'
                       ? 'https://linkedin.com/in/hope.jonathan'
                       : 'mailto:hopejonathan958@gmail.com'
