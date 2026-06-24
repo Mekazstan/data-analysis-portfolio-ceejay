@@ -930,8 +930,8 @@ export default function Portfolio() {
                   'Conducted end-to-end survey analysis on data professionals worldwide — covering salary benchmarks by job title, programming language preferences, work/life balance scores, and difficulty breaking into the field. Built an interactive Power BI dashboard to surface insights for career planning.',
                 tools: ['Power BI', 'Excel'],
                 image: '/images/project1.png',
-                repoLink: '#',
-                liveLink: '#',
+                repoLink: 'https://github.com/Analystceejay/Data-professional-survey-analysis',
+                liveLink: 'https://github.com/Analystceejay/Data-professional-survey-analysis',
               },
               {
                 title: 'Hospital Readmission Analysis',
