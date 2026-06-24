@@ -1106,7 +1106,7 @@ export default function Portfolio() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             {[
               { icon: Mail, label: 'Send an Email', href: 'mailto:hopejonathan958@gmail.com', external: false },
-              { icon: Linkedin, label: 'LinkedIn Profile', href: 'https://linkedin.com/in/hope.jonathan', external: true },
+              { icon: Linkedin, label: 'LinkedIn Profile', href: 'https://www.linkedin.com/in/hope-jonathan-bb10a719a', external: true },
               { icon: Github, label: 'GitHub', href: 'https://github.com/Analystceejay', external: true },
             ].map((link, idx) => (
               <motion.a
@@ -1154,7 +1154,7 @@ export default function Portfolio() {
                   link === 'GitHub'
                     ? 'https://github.com/Analystceejay'
                     : link === 'LinkedIn'
-                      ? 'https://linkedin.com/in/hope.jonathan'
+                      ? 'https://www.linkedin.com/in/hope-jonathan-bb10a719a'
                       : 'mailto:hopejonathan958@gmail.com'
                 }
                 className="text-white/80"
